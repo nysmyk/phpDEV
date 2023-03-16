@@ -1,8 +1,32 @@
+sudo apt install -y
+sudo apt install httd -y
+
 pipeline{
 	agent any
 
 stages{
 	stage('Build the PHP')
-	
+
+sh 'install httd'
+
+}
+
+stage{
+	step{
+		script{
+			sh 'dockek build -t phpProject/phpProject.jar'
+		}
+	}
+}
+
+stage{
+	step{
+		script{
+			withCredentials(){
+				sh 'docker login -u navya1313 -p${dockerhub-pwd} '
+			}
+			}
+		}
+	}
 }
 }
