@@ -5,7 +5,11 @@ pipeline{
 	agent any
 
 stages{
-	stage('Build the PHP')
+	stage('Build the PHP'){
+		script{
+		checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/nysmyk/phpexample']])
+	}
+}
 
 sh 'install httd'
 
